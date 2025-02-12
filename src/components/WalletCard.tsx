@@ -21,43 +21,45 @@ export const WalletCard = ({ wallet, onClick }: WalletCardProps) => {
 
   return (
     <Card
-      className="p-6 hover:shadow-lg transition-shadow duration-300 cursor-pointer animate-fadeIn"
+      className="p-6 hover:shadow-2xl transition-all duration-300 cursor-pointer animate-fadeIn bg-white/5 backdrop-blur-sm border border-white/10"
       onClick={() => onClick(wallet.address)}
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <WalletIcon className="w-5 h-5 text-primary" />
-          <span className="font-medium text-sm text-primary">
+          <WalletIcon className="w-5 h-5 text-purple-400" />
+          <span className="font-medium text-sm text-gray-100">
             {wallet.address.slice(0, 6)}...{wallet.address.slice(-4)}
           </span>
         </div>
-        <Badge variant="secondary">{wallet.tokens.count} Tokens</Badge>
+        <Badge variant="secondary" className="bg-purple-500/20 text-purple-200">
+          {wallet.tokens.count} Tokens
+        </Badge>
       </div>
 
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div className="space-y-4">
           <div>
-            <p className="text-sm text-muted-foreground mb-1">7D Performance</p>
+            <p className="text-sm text-gray-400 mb-1">7D Performance</p>
             <div className="space-y-1">
               <div className="flex items-center gap-1">
                 {wallet.performance.sevenDay.pnl >= 0 ? (
-                  <ArrowUpRight className="w-4 h-4 text-success" />
+                  <ArrowUpRight className="w-4 h-4 text-green-400" />
                 ) : (
-                  <ArrowDownRight className="w-4 h-4 text-danger" />
+                  <ArrowDownRight className="w-4 h-4 text-red-400" />
                 )}
                 <span
                   className={`font-semibold ${
                     wallet.performance.sevenDay.pnl >= 0
-                      ? "text-success"
-                      : "text-danger"
+                      ? "text-green-400"
+                      : "text-red-400"
                   }`}
                 >
                   {formatPnL(wallet.performance.sevenDay.pnl)}
                 </span>
               </div>
               <div className="text-sm">
-                <span className="text-muted-foreground">Win Rate: </span>
-                <span className="font-medium">
+                <span className="text-gray-400">Win Rate: </span>
+                <span className="font-medium text-gray-200">
                   {formatWinRate(wallet.performance.sevenDay.winRate)}
                 </span>
               </div>
@@ -66,27 +68,27 @@ export const WalletCard = ({ wallet, onClick }: WalletCardProps) => {
         </div>
         <div className="space-y-4">
           <div>
-            <p className="text-sm text-muted-foreground mb-1">30D Performance</p>
+            <p className="text-sm text-gray-400 mb-1">30D Performance</p>
             <div className="space-y-1">
               <div className="flex items-center gap-1">
                 {wallet.performance.thirtyDay.pnl >= 0 ? (
-                  <ArrowUpRight className="w-4 h-4 text-success" />
+                  <ArrowUpRight className="w-4 h-4 text-green-400" />
                 ) : (
-                  <ArrowDownRight className="w-4 h-4 text-danger" />
+                  <ArrowDownRight className="w-4 h-4 text-red-400" />
                 )}
                 <span
                   className={`font-semibold ${
                     wallet.performance.thirtyDay.pnl >= 0
-                      ? "text-success"
-                      : "text-danger"
+                      ? "text-green-400"
+                      : "text-red-400"
                   }`}
                 >
                   {formatPnL(wallet.performance.thirtyDay.pnl)}
                 </span>
               </div>
               <div className="text-sm">
-                <span className="text-muted-foreground">Win Rate: </span>
-                <span className="font-medium">
+                <span className="text-gray-400">Win Rate: </span>
+                <span className="font-medium text-gray-200">
                   {formatWinRate(wallet.performance.thirtyDay.winRate)}
                 </span>
               </div>
@@ -95,14 +97,18 @@ export const WalletCard = ({ wallet, onClick }: WalletCardProps) => {
         </div>
       </div>
 
-      <div className="flex justify-between text-sm pt-4 border-t">
+      <div className="flex justify-between text-sm pt-4 border-t border-white/10">
         <div>
-          <span className="text-muted-foreground">Balance:</span>
-          <span className="ml-2 font-medium">{wallet.balance.toFixed(2)} SOL</span>
+          <span className="text-gray-400">Balance:</span>
+          <span className="ml-2 font-medium text-gray-200">
+            {wallet.balance.toFixed(2)} SOL
+          </span>
         </div>
         <div>
-          <span className="text-muted-foreground">Transactions:</span>
-          <span className="ml-2 font-medium">{wallet.transactionCount}</span>
+          <span className="text-gray-400">Transactions:</span>
+          <span className="ml-2 font-medium text-gray-200">
+            {wallet.transactionCount}
+          </span>
         </div>
       </div>
     </Card>
