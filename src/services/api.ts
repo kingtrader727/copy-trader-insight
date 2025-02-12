@@ -8,7 +8,9 @@ export const api = {
   async getWallets(): Promise<Wallet[]> {
     try {
       const response = await axios.get(`${API_BASE_URL}/wallets`);
-      return response.data;
+      // Ensure we're dealing with an array
+      const wallets = Array.isArray(response.data) ? response.data : [];
+      return wallets;
     } catch (error) {
       console.error("Error fetching wallets:", error);
       return [];

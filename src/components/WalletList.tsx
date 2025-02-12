@@ -15,10 +15,13 @@ const DEFAULT_FILTERS: WalletFilters = {
 export const WalletList = () => {
   const [filters, setFilters] = useState<WalletFilters>(DEFAULT_FILTERS);
 
-  const { data: wallets = [], isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["wallets"],
     queryFn: api.getWallets,
   });
+
+  // Ensure data is an array
+  const wallets = Array.isArray(data) ? data : [];
 
   const filteredWallets = wallets.filter(
     (wallet) =>
@@ -27,10 +30,13 @@ export const WalletList = () => {
       wallet.transactionCount <= filters.maxTransactions
   );
 
-  const handleWalletClick = (address: string) => {
-    console.log("Selected wallet:", address);
-    // Implement wallet detail view navigation
-  };
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <span className="text-danger">Error loading wallets. Please try again.</span>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
